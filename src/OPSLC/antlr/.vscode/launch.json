@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"configurations": [
+		{
+			"name": "Debug ANTLR4 Grammar",
+			"type": "antlr-debug",
+			"request": "launch",
+			"input": "shadertoy.frag",
+			"grammar": "GLSLParser.g4",
+			"startRule": "translationUnit",
+			"printParseTree": true
+		}
+	]
+}

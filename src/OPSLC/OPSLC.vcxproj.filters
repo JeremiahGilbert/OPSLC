@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ANTLR">
+      <UniqueIdentifier>{6383a1bd-4154-40db-b3ce-d7937d3737f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ANTLR">
+      <UniqueIdentifier>{d297c614-6ec2-4464-bff4-eea441eb9123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsers">
+      <UniqueIdentifier>{a4b4759b-245b-418c-94ef-a1018677b2e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsers">
+      <UniqueIdentifier>{58e42169-f283-4297-b90f-13be26ceaa22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GLSLLayoutVisitor.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="antlr\GLSLLexer.cpp">
+      <Filter>Source Files\ANTLR</Filter>
+    </ClCompile>
+    <ClCompile Include="antlr\GLSLParser.cpp">
+      <Filter>Source Files\ANTLR</Filter>
+    </ClCompile>
+    <ClCompile Include="antlr\GLSLParserBaseVisitor.cpp">
+      <Filter>Source Files\ANTLR</Filter>
+    </ClCompile>
+    <ClCompile Include="antlr\GLSLParserVisitor.cpp">
+      <Filter>Source Files\ANTLR</Filter>
+    </ClCompile>
+    <ClCompile Include="Compiler.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSLTypes.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexInputAttributeDescriptionParser.cxx">
+      <Filter>Source Files\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetLayoutBindingParser.cxx">
+      <Filter>Source Files\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="PushConstantRangeParser.cxx">
+      <Filter>Source Files\Parsers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLSLLayoutVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="antlr\GLSLLexer.h">
+      <Filter>Header Files\ANTLR</Filter>
+    </ClInclude>
+    <ClInclude Include="antlr\GLSLParser.h">
+      <Filter>Header Files\ANTLR</Filter>
+    </ClInclude>
+    <ClInclude Include="antlr\GLSLParserBaseVisitor.h">
+      <Filter>Header Files\ANTLR</Filter>
+    </ClInclude>
+    <ClInclude Include="antlr\GLSLParserVisitor.h">
+      <Filter>Header Files\ANTLR</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Compiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSLTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexInputAttributeDescriptionParser.h">
+      <Filter>Header Files\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetLayoutBindingParser.h">
+      <Filter>Header Files\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="PushConstantRangeParser.h">
+      <Filter>Header Files\Parsers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
