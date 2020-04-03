@@ -48,9 +48,9 @@ GLSLTypes::GLSLTypeInfo GLSLTypes::operator()(std::string const& type_name) cons
 		case fnv1a("dvec2"):
 			return {sizeof(glm::dvec2), 1};
 		case fnv1a("dvec3"):
-			return {sizeof(glm::dvec3), 1};
+			return {sizeof(glm::dvec3), 2};
 		case fnv1a("dvec4"):
-			return {sizeof(glm::dvec4), 1};
+			return {sizeof(glm::dvec4), 2};
 		case fnv1a("mat2"):
 			return {sizeof(glm::mat2), 2};
 		case fnv1a("mat2x2"):
