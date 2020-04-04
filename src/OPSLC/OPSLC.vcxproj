@@ -152,12 +152,12 @@
     <ClCompile Include="antlr\GLSLParserBaseVisitor.cpp" />
     <ClCompile Include="antlr\GLSLParserVisitor.cpp" />
     <ClCompile Include="Compiler.cxx" />
-    <ClCompile Include="DescriptorSetLayoutBindingParser.cxx" />
+    <ClCompile Include="DescriptorSetParser.cxx" />
     <ClCompile Include="GLSLLayoutVisitor.cxx" />
     <ClCompile Include="GLSLTypes.cxx" />
     <ClCompile Include="main.cxx" />
-    <ClCompile Include="PushConstantRangeParser.cxx" />
-    <ClCompile Include="VertexInputAttributeDescriptionParser.cxx" />
+    <ClCompile Include="PushConstantParser.cxx" />
+    <ClCompile Include="VertexInputParser.cxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="antlr\GLSLLexer.h" />
@@ -165,14 +165,14 @@
     <ClInclude Include="antlr\GLSLParserBaseVisitor.h" />
     <ClInclude Include="antlr\GLSLParserVisitor.h" />
     <ClInclude Include="Compiler.h" />
-    <ClInclude Include="DescriptorSetLayoutBindingParser.h" />
+    <ClInclude Include="DescriptorSetParser.h" />
     <ClInclude Include="GLSLLayoutVisitor.h" />
     <ClInclude Include="GLSLTypes.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="ParserTypes.h" />
-    <ClInclude Include="PushConstantRangeParser.h" />
+    <ClInclude Include="PushConstantParser.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="VertexInputAttributeDescriptionParser.h" />
+    <ClInclude Include="VertexInputParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibOPSL\LibOPSL.vcxproj">

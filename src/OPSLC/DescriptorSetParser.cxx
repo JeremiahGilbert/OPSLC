@@ -1,8 +1,8 @@
-#include "DescriptorSetLayoutBindingParser.h"
+#include "DescriptorSetParser.h"
 
 #include <numeric>
 
-void DescriptorSetLayoutBindingParser::operator()(InitDeclaratorList const& init_declarator_list, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
+void DescriptorSetParser::operator()(InitDeclaratorList const& init_declarator_list, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
 	auto const& fully_specified_type = init_declarator_list.fully_specified_type;
 	auto const& type_qualifier = fully_specified_type.type_qualifier;
 
@@ -37,17 +37,15 @@ void DescriptorSetLayoutBindingParser::operator()(InitDeclaratorList const& init
 	auto const type_array_multiplier = std::accumulate(type_array_specifier.begin(), type_array_specifier.end(), 1, std::multiplies<uint32_t>{});
 
 	for (auto const& init_declarator : init_declarator_list.init_declarators) {
-		auto descriptor_set_layout_binding = opsl::DescriptorSetLayoutBinding{};
-
 		auto const& variable_array_specifier = init_declarator.array_specifier;
 		auto const variable_array_multiplier = std::accumulate(variable_array_specifier.begin(), variable_array_specifier.end(), 1, std::multiplies<uint32_t>{});
 		auto const total_array_multiplier = type_array_multiplier * variable_array_multiplier;
 
+		auto descriptor_set_layout_binding = vk::DescriptorSetLayoutBinding{};
 		descriptor_set_layout_binding.binding = binding_;
-		descriptor_set_layout_binding.descriptor_type = descriptor_type;
-		descriptor_set_layout_binding.descriptor_count = total_array_multiplier;
-		descriptor_set_layout_binding.stage_flags = stage_flags;
-		descriptor_set_layout_binding.size = size;
+		descriptor_set_layout_binding.descriptorType = descriptor_type;
+		descriptor_set_layout_binding.descriptorCount = total_array_multiplier;
+		descriptor_set_layout_binding.stageFlags = stage_flags;
 
 		descriptor_set_layout_bindings_.push_back(descriptor_set_layout_binding);
 
@@ -55,7 +53,7 @@ void DescriptorSetLayoutBindingParser::operator()(InitDeclaratorList const& init
 	}
 }
 
-void DescriptorSetLayoutBindingParser::operator()(InterfaceBlock const& interface_block, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
+void DescriptorSetParser::operator()(InterfaceBlock const& interface_block, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
 	// Binding.
 	auto const& layout_qualifier_ids = interface_block.type_qualifier.layout_qualifier_ids;
 	if (layout_qualifier_ids.find("binding") != layout_qualifier_ids.end()) {
@@ -71,12 +69,11 @@ void DescriptorSetLayoutBindingParser::operator()(InterfaceBlock const& interfac
 	// Size.
 	auto const size = glsl_types.get_size(interface_block.block_name);
 
-	auto descriptor_set_layout_binding = opsl::DescriptorSetLayoutBinding{};
+	auto descriptor_set_layout_binding = vk::DescriptorSetLayoutBinding{};
 	descriptor_set_layout_binding.binding = binding_;
-	descriptor_set_layout_binding.descriptor_type = vk::DescriptorType::eUniformBuffer;
-	descriptor_set_layout_binding.descriptor_count = variable_array_multiplier;
-	descriptor_set_layout_binding.stage_flags = stage_flags;
-	descriptor_set_layout_binding.size = size * variable_array_multiplier;
+	descriptor_set_layout_binding.descriptorType = vk::DescriptorType::eUniformBuffer;
+	descriptor_set_layout_binding.descriptorCount = variable_array_multiplier;
+	descriptor_set_layout_binding.stageFlags = stage_flags;
 
 	descriptor_set_layout_bindings_.push_back(descriptor_set_layout_binding);
 

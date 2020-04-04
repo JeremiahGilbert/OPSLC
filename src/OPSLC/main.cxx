@@ -1,6 +1,5 @@
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -8,11 +7,7 @@
 
 #include "opsl.h"
 
-#include "ANTLR/GLSLLexer.h"
-#include "ANTLR/GLSLParser.h"
 #include "Compiler.h"
-#include "GLSLLayoutVisitor.h"
-#include "ParserTypes.h"
 #include "Utilities.h"
 
 int main(int argc, char* argv[]) {

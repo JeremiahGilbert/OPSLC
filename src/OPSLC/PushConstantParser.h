@@ -9,7 +9,7 @@
 #include "GLSLTypes.h"
 #include "ParserTypes.h"
 
-class PushConstantRangeParser {
+class PushConstantParser {
 public:
 	void operator()(InitDeclaratorList const& init_declarator_list, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types);
 

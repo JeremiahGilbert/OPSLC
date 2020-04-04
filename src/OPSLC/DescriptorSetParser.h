@@ -7,7 +7,7 @@
 #include "GLSLTypes.h"
 #include "ParserTypes.h"
 
-class DescriptorSetLayoutBindingParser {
+class DescriptorSetParser {
 public:
 	void operator()(InitDeclaratorList const& init_declarator_list, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types);
 

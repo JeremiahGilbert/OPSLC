@@ -1,8 +1,8 @@
-#include "PushConstantRangeParser.h"
+#include "PushConstantParser.h"
 
 #include <numeric>
 
-void PushConstantRangeParser::operator()(InitDeclaratorList const& init_declarator_list, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
+void PushConstantParser::operator()(InitDeclaratorList const& init_declarator_list, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
 	// Offset.
 	auto const& layout_qualifier_ids = init_declarator_list.fully_specified_type.type_qualifier.layout_qualifier_ids;
 	if (layout_qualifier_ids.find("offset") != layout_qualifier_ids.end()) {
@@ -28,13 +28,12 @@ void PushConstantRangeParser::operator()(InitDeclaratorList const& init_declarat
 	auto const type_array_multiplier = std::accumulate(type_array_specifier.begin(), type_array_specifier.end(), 1, std::multiplies<uint32_t>{});
 
 	for (auto const& init_declarator : init_declarator_list.init_declarators) {
-		auto push_constant_range = opsl::PushConstantRange{};
-
 		auto const& variable_array_specifier = init_declarator.array_specifier;
 		auto const variable_array_muliplier = std::accumulate(variable_array_specifier.begin(), variable_array_specifier.end(), 1, std::multiplies<uint32_t>{});
 		auto const total_array_multiplier = type_array_multiplier * variable_array_muliplier;
 
-		push_constant_range.stage_flags = stage_flags;
+		auto push_constant_range = vk::PushConstantRange{};
+		push_constant_range.stageFlags = stage_flags;
 		push_constant_range.offset = offset_;
 		push_constant_range.size = size * total_array_multiplier;
 
@@ -44,7 +43,7 @@ void PushConstantRangeParser::operator()(InitDeclaratorList const& init_declarat
 	}
 }
 
-void PushConstantRangeParser::operator()(InterfaceBlock const& interface_block, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
+void PushConstantParser::operator()(InterfaceBlock const& interface_block, vk::ShaderStageFlagBits const stage_flags, GLSLTypes const& glsl_types) {
 	auto const& type_qualifier = interface_block.type_qualifier;
 
 	// Stage flags.
@@ -61,8 +60,8 @@ void PushConstantRangeParser::operator()(InterfaceBlock const& interface_block, 
 	auto const& variable_array_specifier = interface_block.array_specifier;
 	auto const variable_array_multiplier = std::accumulate(variable_array_specifier.begin(), variable_array_specifier.end(), 1, std::multiplies<uint32_t>{});
 	
-	auto push_constant_range = opsl::PushConstantRange{};
-	push_constant_range.stage_flags = stage_flags;
+	auto push_constant_range = vk::PushConstantRange{};
+	push_constant_range.stageFlags = stage_flags;
 	push_constant_range.offset = offset_;
 	push_constant_range.size = size * variable_array_multiplier;
 	

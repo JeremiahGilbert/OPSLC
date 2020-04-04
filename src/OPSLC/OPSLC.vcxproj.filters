@@ -51,13 +51,13 @@
     <ClCompile Include="GLSLTypes.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VertexInputAttributeDescriptionParser.cxx">
+    <ClCompile Include="VertexInputParser.cxx">
       <Filter>Source Files\Parsers</Filter>
     </ClCompile>
-    <ClCompile Include="DescriptorSetLayoutBindingParser.cxx">
+    <ClCompile Include="DescriptorSetParser.cxx">
       <Filter>Source Files\Parsers</Filter>
     </ClCompile>
-    <ClCompile Include="PushConstantRangeParser.cxx">
+    <ClCompile Include="PushConstantParser.cxx">
       <Filter>Source Files\Parsers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,13 +92,13 @@
     <ClInclude Include="Hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VertexInputAttributeDescriptionParser.h">
+    <ClInclude Include="VertexInputParser.h">
       <Filter>Header Files\Parsers</Filter>
     </ClInclude>
-    <ClInclude Include="DescriptorSetLayoutBindingParser.h">
+    <ClInclude Include="DescriptorSetParser.h">
       <Filter>Header Files\Parsers</Filter>
     </ClInclude>
-    <ClInclude Include="PushConstantRangeParser.h">
+    <ClInclude Include="PushConstantParser.h">
       <Filter>Header Files\Parsers</Filter>
     </ClInclude>
   </ItemGroup>

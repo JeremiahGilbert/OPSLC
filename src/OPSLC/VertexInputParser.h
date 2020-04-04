@@ -8,16 +8,14 @@
 #include "GLSLTypes.h"
 #include "ParserTypes.h"
 
-class VertexInputAttributeDescriptionParser {
+class VertexInputParser {
 	using BindingOffsets = std::map<uint32_t, uint32_t>;
 public:
 	void operator()(InitDeclaratorList const& init_declarator_list, GLSLTypes const& glsl_types);
 
-	inline BindingOffsets get_binding_offsets() const {
-		return binding_offsets_;
-	}
+	std::vector<vk::VertexInputBindingDescription> get_vertex_input_binding_descriptions() const;
 
-	inline opsl::VertexInputAttributeDescriptions get_vertex_input_attribute_descriptions() const {
+	inline auto const& vertex_input_attribute_descriptions() const {
 		return vertex_input_attribute_descriptions_;
 	}
 

@@ -145,12 +145,8 @@
     <ClCompile Include="opsl.cxx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CompiledShader.h" />
-    <ClInclude Include="DescriptorSetLayoutBinding.h" />
     <ClInclude Include="opsl.h" />
-    <ClInclude Include="PushConstantRange.h" />
-    <ClInclude Include="ShaderData.h" />
-    <ClInclude Include="VertexInputAttributeDescription.h" />
+    <ClInclude Include="OPSLData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

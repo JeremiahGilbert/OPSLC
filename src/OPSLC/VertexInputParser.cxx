@@ -1,10 +1,10 @@
-#include "VertexInputAttributeDescriptionParser.h"
+#include "VertexInputParser.h"
 
 #include <numeric>
 
 #include "Utilities.h"
 
-void VertexInputAttributeDescriptionParser::operator()(InitDeclaratorList const& init_declarator_list, GLSLTypes const& glsl_types) {
+void VertexInputParser::operator()(InitDeclaratorList const& init_declarator_list, GLSLTypes const& glsl_types) {
 	auto const& fully_specified_type = init_declarator_list.fully_specified_type;
 
 	// Location.
@@ -33,14 +33,12 @@ void VertexInputAttributeDescriptionParser::operator()(InitDeclaratorList const&
 
 	auto const [size, attributes] = glsl_types(type_name);
 	for (auto const& init_declarator : init_declarator_list.init_declarators) {
-		auto vertex_input_attribute_description = opsl::VertexInputAttributeDescription{};
+		auto vertex_input_attribute_description = vk::VertexInputAttributeDescription{};
 
 		vertex_input_attribute_description.location = location_;
 		vertex_input_attribute_description.binding = binding;
 		vertex_input_attribute_description.format = format;
 		vertex_input_attribute_description.offset = offset;
-		vertex_input_attribute_description.identifier = init_declarator.identifier;
-		vertex_input_attribute_description.attributes = attributes;
 
 		vertex_input_attribute_descriptions_.push_back(vertex_input_attribute_description);
 
@@ -52,4 +50,19 @@ void VertexInputAttributeDescriptionParser::operator()(InitDeclaratorList const&
 		location_ += attributes * total_array_multiplier; // Location autoincrement.
 		offset += size * total_array_multiplier;
 	}
+}
+
+std::vector<vk::VertexInputBindingDescription> VertexInputParser::get_vertex_input_binding_descriptions() const {
+	auto vertex_input_binding_descriptions = std::vector<vk::VertexInputBindingDescription>{};
+
+	for (auto const& binding_offset : binding_offsets_) {
+		auto vertex_input_binding_description = vk::VertexInputBindingDescription{};
+		vertex_input_binding_description.binding = binding_offset.first;
+		vertex_input_binding_description.stride = binding_offset.second;
+		vertex_input_binding_description.inputRate = vk::VertexInputRate::eVertex;
+
+		vertex_input_binding_descriptions.push_back(vertex_input_binding_description);
+	}
+
+	return vertex_input_binding_descriptions;
 }

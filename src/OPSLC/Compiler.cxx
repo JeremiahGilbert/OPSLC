@@ -17,9 +17,9 @@
 #include "Utilities.h"
 
 // Parsers.
-#include "VertexInputAttributeDescriptionParser.h"
-#include "DescriptorSetLayoutBindingParser.h"
-#include "PushConstantRangeParser.h"
+#include "VertexInputParser.h"
+#include "DescriptorSetParser.h"
+#include "PushConstantParser.h"
 
 std::string preprocess_shader(std::string const& shader_code);
 opsl::OPSLData parse_shader(TranslationUnit const& translation_unit, vk::ShaderStageFlagBits const stage_flags);
@@ -57,9 +57,9 @@ opsl::OPSLData parse_shader(TranslationUnit const& translation_unit, vk::ShaderS
 
 	auto glsl_types = GLSLTypes{};
 
-	auto vertex_input_attribute_description_parser = VertexInputAttributeDescriptionParser{};
-	auto descriptor_set_layout_binding_parser = DescriptorSetLayoutBindingParser{};
-	auto push_constant_range_parser = PushConstantRangeParser{};
+	auto vertex_input_parser = VertexInputParser{};
+	auto descriptor_set_parser = DescriptorSetParser{};
+	auto push_constant_parser = PushConstantParser{};
 
 	for (auto const& declaration : translation_unit) {
 
@@ -80,7 +80,7 @@ opsl::OPSLData parse_shader(TranslationUnit const& translation_unit, vk::ShaderS
 			auto const& type_qualifier = fully_specified_type.type_qualifier;
 			auto const& single_type_qualifiers = type_qualifier.single_type_qualifiers;
 			if (std::find(single_type_qualifiers.begin(), single_type_qualifiers.end(), "in") != single_type_qualifiers.end() && stage_flags == vk::ShaderStageFlagBits::eVertex) {
-				vertex_input_attribute_description_parser(init_declarator_list, glsl_types);
+				vertex_input_parser(init_declarator_list, glsl_types);
 			}
 
 			if (std::find(single_type_qualifiers.begin(), single_type_qualifiers.end(), "uniform") != single_type_qualifiers.end()) {
@@ -88,10 +88,10 @@ opsl::OPSLData parse_shader(TranslationUnit const& translation_unit, vk::ShaderS
 				// Descriptor set layout binding.
 				auto const& layout_qualifier_ids = type_qualifier.layout_qualifier_ids;
 				if (layout_qualifier_ids.find("push_constant") == layout_qualifier_ids.end()) {
-					descriptor_set_layout_binding_parser(init_declarator_list, stage_flags, glsl_types);
+					descriptor_set_parser(init_declarator_list, stage_flags, glsl_types);
 				
 				} else { // Push constant range.
-					push_constant_range_parser(init_declarator_list, stage_flags, glsl_types);
+					push_constant_parser(init_declarator_list, stage_flags, glsl_types);
 				}
 			}
 		} else { // Interface block.
@@ -106,21 +106,20 @@ opsl::OPSLData parse_shader(TranslationUnit const& translation_unit, vk::ShaderS
 				// Descriptor set layout binding.
 				auto const& layout_qualifier_ids = interface_block.type_qualifier.layout_qualifier_ids;
 				if (layout_qualifier_ids.find("push_constant") == layout_qualifier_ids.end()) {
-					descriptor_set_layout_binding_parser(interface_block, stage_flags, glsl_types);
+					descriptor_set_parser(interface_block, stage_flags, glsl_types);
 
 				} else { // Push constant range.
-					push_constant_range_parser(interface_block, stage_flags, glsl_types);
+					push_constant_parser(interface_block, stage_flags, glsl_types);
 				}
 			}
 		}
 	}
 
-	opsl_data.input_strides = vertex_input_attribute_description_parser.get_binding_offsets();
-	opsl_data.vertex_input_attribute_descriptions = vertex_input_attribute_description_parser.get_vertex_input_attribute_descriptions();
-	opsl_data.descriptor_set_layout_bindings = descriptor_set_layout_binding_parser.get_descriptor_set_layout_bindings();
-	opsl_data.push_constant_ranges = push_constant_range_parser.get_push_constant_ranges();
+	opsl_data.vertex_input_binding_descriptions = vertex_input_parser.get_vertex_input_binding_descriptions();
+	opsl_data.vertex_input_attribute_descriptions = vertex_input_parser.vertex_input_attribute_descriptions();
+	opsl_data.descriptor_set_layout_bindings = descriptor_set_parser.get_descriptor_set_layout_bindings();
+	opsl_data.push_constant_ranges = push_constant_parser.get_push_constant_ranges();
 
-	// TODO
 	return opsl_data;
 }
 

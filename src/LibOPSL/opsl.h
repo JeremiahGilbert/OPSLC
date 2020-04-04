@@ -2,7 +2,7 @@
 
 #include <filesystem>
 
-#include "ShaderData.h"
+#include "OPSLData.h"
 
 namespace opsl {
 	void write_opsl(OPSLData const& shader_data, std::filesystem::path const& path);
